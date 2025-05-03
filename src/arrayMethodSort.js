@@ -3,22 +3,21 @@
 /**
  * Implement method Sort
  */
+
 function applyCustomSort() {
   [].__proto__.sort2 = function (
-    compareFunction = (a, b) => String(a) > String(b),
+    compareFunction = (elem1, elem2) => {
+      return Number(elem1 > elem2);
+    },
   ) {
-    for (let i = 0; i < this.length; i++) {
-      let swapped = false;
+    for (let i = 0; i < this.length - 1; i++) {
+      for (let j = i + 1; j < this.length; j++) {
+        const el1 = String(this[i]);
+        const el2 = String(this[j]);
 
-      for (let j = 0; j < this.length - 1 - i; j++) {
-        if (compareFunction(this[j], this[j + 1]) > 0) {
-          [this[j], this[j + 1]] = [this[j + 1], this[j]];
-          swapped = true;
+        if (compareFunction(el1, el2) > 0) {
+          [this[i], this[j]] = [this[j], this[i]];
         }
-      }
-
-      if (!swapped) {
-        break;
       }
     }
 
